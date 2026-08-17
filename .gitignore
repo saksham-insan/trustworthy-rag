@@ -1,0 +1,27 @@
+# Environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Data (large / regenerable — don't commit raw PDFs or vector DB dumps)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+chroma_db/
+chroma_db_mono/
+chroma_db_multi/
+
+# Eval outputs
+eval/*.sqlite
+eval/*.db
+eval/results/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
