@@ -1,27 +1,27 @@
 # --- Core ---
-python-dotenv==1.0.1
+python-dotenv
 
 # --- Document extraction ---
-pymupdf==1.24.10          # fast, handles most PDFs well (fitz)
-pdfplumber==0.11.4         # fallback for tricky tables/layouts
+pymupdf
+pdfplumber
 
 # --- Embeddings (CPU-only) ---
-sentence-transformers==3.0.1
-torch==2.3.1               # CPU wheel; installed separately, see README
+sentence-transformers
+# torch installed separately (already done) — do not re-pin here
 
 # --- Vector DB ---
-chromadb==0.5.5
+chromadb
 
 # --- LLM APIs (free tiers) ---
-google-generativeai==0.7.2   # Gemini
-groq==0.9.0                  # Groq (Llama/Mixtral, very fast free tier)
+google-generativeai
+groq
 
 # --- Backend / Frontend ---
-fastapi==0.112.0
-uvicorn==0.30.5
-streamlit==1.37.1
+fastapi
+uvicorn
+streamlit
 
 # --- Eval / storage / utils ---
-pandas==2.2.2
-tqdm==4.66.5
-pydantic==2.8.2
+pandas
+tqdm
+pydantic
