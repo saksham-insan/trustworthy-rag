@@ -14,10 +14,10 @@ CHROMA_MONO_DIR = PROJECT_ROOT / "chroma_db_mono"      # monolingual index condi
 CHROMA_MULTI_DIR = PROJECT_ROOT / "chroma_db_multi"    # shared multilingual index condition
 EVAL_DB_PATH = PROJECT_ROOT / "eval" / "logs.sqlite"
 
-# --- Supported languages (extend later if needed) ---
-# Keep language codes consistent everywhere: ISO-639-1 where possible,
-# "kanglish" is our own label since it isn't a real ISO code.
-SUPPORTED_LANGUAGES = ["en", "hi", "kn", "kanglish"]
+# --- Supported languages ---
+# "benglish" = Bengali-English code-mixed queries (our own label, not a real ISO code).
+# It only appears in test QUERIES, never in the source knowledge base.
+SUPPORTED_LANGUAGES = ["en", "hi", "bn", "benglish"]
 
 # --- Chunking ---
 # Small-ish chunks: multilingual-e5-base has a 512 token context; we chunk
@@ -29,7 +29,7 @@ CHUNK_OVERLAP_CHARS = 150
 # --- Embedding model ---
 # multilingual-e5-base: ~278M params, ~1.1GB fp32, runs fine on CPU for a
 # corpus of a few hundred to a few thousand chunks. Supports 100+ languages
-# including Hindi and Kannada.
+# including Hindi and Bengali.
 EMBEDDING_MODEL_NAME = "intfloat/multilingual-e5-base"
 EMBEDDING_BATCH_SIZE = 16  # keep small on 8GB RAM; raise cautiously if headroom allows
 
@@ -42,3 +42,8 @@ TOP_K = 5
 # --- LLM generation ---
 GENERATION_MAX_TOKENS = 512
 GENERATION_TEMPERATURE = 0.2  # low temperature: we want grounded, not creative, answers
+
+# --- LLM model names (current as of this project's setup — verify periodically,
+#     free-tier providers retire/rename models fairly often) ---
+GEMINI_MODEL_NAME = "gemini-flash-lite-latest"
+GROQ_MODEL_NAME = "openai/gpt-oss-20b"
