@@ -56,6 +56,8 @@ def root():
 
 @app.post("/query", response_model=QueryResponse)
 def query(request: QueryRequest):
+    if not request.question.strip():
+        raise HTTPException(status_code=400, detail="question must not be empty")
     if request.language not in ("en", "hi", "bn"):
         raise HTTPException(status_code=400, detail="language must be one of: en, hi, bn")
     if request.index_condition not in ("mono", "multi"):
@@ -63,8 +65,12 @@ def query(request: QueryRequest):
 
     try:
         record = run_pipeline(request.question, request.language, request.index_condition)
+    except RuntimeError as e:
+        # RuntimeError here means a setup problem (e.g. index not built yet) —
+        # that's a client-fixable issue, not a server crash, so 400 not 500.
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Pipeline error: {e}")
 
     return QueryResponse(
         question=record["question"],

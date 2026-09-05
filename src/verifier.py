@@ -40,6 +40,7 @@ from groq import Groq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import GROQ_MODEL_NAME
+from src.utils import retry_with_backoff
 
 load_dotenv()
 
@@ -73,13 +74,16 @@ def verify_answer(question: str, context_chunks: list[str], answer: str) -> dict
     client = Groq(api_key=api_key)
 
     prompt = build_verifier_prompt(question, context_chunks, answer)
-    completion = client.chat.completions.create(
-        model=GROQ_MODEL_NAME,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.0,  # deterministic — we want consistent judging, not creativity
-    )
 
-    raw = completion.choices[0].message.content.strip()
+    def call():
+        return client.chat.completions.create(
+            model=GROQ_MODEL_NAME,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,  # deterministic — we want consistent judging, not creativity
+        )
+
+    completion = retry_with_backoff(call, label="Groq verification")
+    raw = (completion.choices[0].message.content or "").strip()
 
     # Strip markdown code fences if the model added them despite instructions
     if raw.startswith("```"):

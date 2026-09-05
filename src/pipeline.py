@@ -74,12 +74,22 @@ def retrieve(question: str, lang: str, index_condition: str, model):
 
     if index_condition == "mono":
         client = chromadb.PersistentClient(path=str(CHROMA_MONO_DIR))
-        collection = client.get_collection(name=f"lang_{lang}")
+        collection_name = f"lang_{lang}"
     elif index_condition == "multi":
         client = chromadb.PersistentClient(path=str(CHROMA_MULTI_DIR))
-        collection = client.get_collection(name="all_languages")
+        collection_name = "all_languages"
     else:
         raise ValueError("index_condition must be 'mono' or 'multi'")
+
+    try:
+        collection = client.get_collection(name=collection_name)
+    except Exception:
+        raise RuntimeError(
+            f"Could not find index collection '{collection_name}' "
+            f"(index_condition='{index_condition}', language='{lang}'). "
+            f"Have you run `python src/embed_index.py` yet? "
+            f"If you're testing a new language, make sure it's been ingested and indexed first."
+        )
 
     results = collection.query(query_embeddings=query_embedding, n_results=TOP_K)
     latency_ms = (time.perf_counter() - start) * 1000

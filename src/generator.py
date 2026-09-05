@@ -34,6 +34,7 @@ from src.config import (
     GENERATION_TEMPERATURE,
     TOP_K,
 )
+from src.utils import retry_with_backoff
 
 load_dotenv()
 
@@ -71,14 +72,18 @@ def generate_answer(question: str, context_chunks: list[str], lang: str) -> str:
     client = genai.Client(api_key=api_key)
 
     prompt = build_prompt(question, context_chunks, lang)
-    response = client.models.generate_content(
-        model=GEMINI_MODEL_NAME,
-        contents=prompt,
-        config={
-            "temperature": GENERATION_TEMPERATURE,
-            "max_output_tokens": GENERATION_MAX_TOKENS,
-        },
-    )
+
+    def call():
+        return client.models.generate_content(
+            model=GEMINI_MODEL_NAME,
+            contents=prompt,
+            config={
+                "temperature": GENERATION_TEMPERATURE,
+                "max_output_tokens": GENERATION_MAX_TOKENS,
+            },
+        )
+
+    response = retry_with_backoff(call, label="Gemini generation")
     return response.text.strip()
 
 
@@ -128,4 +133,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
