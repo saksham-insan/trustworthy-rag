@@ -32,12 +32,14 @@ class QueryRequest(BaseModel):
     question: str
     language: str          # "en" | "hi" | "bn"
     index_condition: str = "mono"   # "mono" | "multi"
+    verifier_enabled: bool = True   # set False to test the pipeline WITHOUT the verifier (RQ2 ablation)
 
 
 class QueryResponse(BaseModel):
     question: str
     language: str
     index_condition: str
+    verifier_enabled: bool
     answer: str
     verifier_verdict: str
     verifier_explanation: str
@@ -64,7 +66,7 @@ def query(request: QueryRequest):
         raise HTTPException(status_code=400, detail="index_condition must be 'mono' or 'multi'")
 
     try:
-        record = run_pipeline(request.question, request.language, request.index_condition)
+        record = run_pipeline(request.question, request.language, request.index_condition, request.verifier_enabled)
     except RuntimeError as e:
         # RuntimeError here means a setup problem (e.g. index not built yet) —
         # that's a client-fixable issue, not a server crash, so 400 not 500.
@@ -76,6 +78,7 @@ def query(request: QueryRequest):
         question=record["question"],
         language=record["language"],
         index_condition=record["index_condition"],
+        verifier_enabled=record["verifier_enabled"],
         answer=record["answer"],
         verifier_verdict=record["verifier_verdict"],
         verifier_explanation=record["verifier_explanation"],

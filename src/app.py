@@ -33,18 +33,38 @@ with col2:
 with col3:
     index_condition = st.selectbox("Index condition", ["mono", "multi"], format_func=lambda c: {"mono": "Monolingual", "multi": "Multilingual"}[c])
 
+verifier_enabled = st.checkbox(
+    "Enable verifier agent",
+    value=True,
+    help="Turn off to see the generator's raw answer with no hallucination check — useful for comparing with/without the verifier (RQ2).",
+)
+
 if st.button("Ask", type="primary") and question.strip():
-    with st.spinner("Retrieving context, generating answer, verifying..."):
+    with st.spinner("Retrieving context, generating answer" + (", verifying..." if verifier_enabled else "...")):
         try:
             response = requests.post(
                 API_URL,
-                json={"question": question, "language": language, "index_condition": index_condition},
-                timeout=60,
+                json={
+                    "question": question,
+                    "language": language,
+                    "index_condition": index_condition,
+                    "verifier_enabled": verifier_enabled,
+                },
+                timeout=180,  # generous: retries on rate limits can add 10-30s+ per stage
             )
-            response.raise_for_status()
+            if response.status_code >= 400:
+                try:
+                    detail = response.json().get("detail", response.text)
+                except Exception:
+                    detail = response.text
+                st.error(f"Request failed ({response.status_code}): {detail}")
+                st.stop()
             result = response.json()
         except requests.exceptions.ConnectionError:
             st.error("Can't reach the API. Make sure it's running: `uvicorn src.api:app --reload --port 8000`")
+            st.stop()
+        except requests.exceptions.Timeout:
+            st.error("Request timed out. The APIs may be under heavy rate-limiting right now — try again in a minute.")
             st.stop()
         except Exception as e:
             st.error(f"Request failed: {e}")
@@ -54,7 +74,9 @@ if st.button("Ask", type="primary") and question.strip():
     st.write(result["answer"])
 
     verdict = result["verifier_verdict"]
-    verdict_color = {"SUPPORTED": "green", "UNSUPPORTED": "red", "PARTIALLY_SUPPORTED": "orange"}.get(verdict, "gray")
+    verdict_color = {
+        "SUPPORTED": "green", "UNSUPPORTED": "red", "PARTIALLY_SUPPORTED": "orange", "NOT_VERIFIED": "gray",
+    }.get(verdict, "gray")
     st.markdown(f"**Verifier verdict:** :{verdict_color}[{verdict}]")
     st.caption(result["verifier_explanation"])
 

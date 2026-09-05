@@ -26,7 +26,7 @@ def main():
     conn.row_factory = sqlite3.Row
 
     query = """
-        SELECT id, timestamp, question, language, index_condition,
+        SELECT id, timestamp, question, language, index_condition, verifier_enabled,
                verifier_verdict, retrieval_latency_ms, generation_latency_ms,
                verification_latency_ms, total_latency_ms
         FROM logs
@@ -42,11 +42,12 @@ def main():
         print("No runs logged yet.")
         return
 
-    print(f"{'ID':<4} {'Lang':<5} {'Cond':<6} {'Verdict':<12} {'Retr(ms)':<10} {'Gen(ms)':<10} {'Verify(ms)':<11} {'Total(ms)':<10} Question")
-    print("-" * 130)
+    print(f"{'ID':<4} {'Lang':<5} {'Cond':<6} {'Verify':<7} {'Verdict':<12} {'Retr(ms)':<10} {'Gen(ms)':<10} {'Verify(ms)':<11} {'Total(ms)':<10} Question")
+    print("-" * 140)
     for r in rows:
         q_preview = r["question"][:45] + ("..." if len(r["question"]) > 45 else "")
-        print(f"{r['id']:<4} {r['language']:<5} {r['index_condition']:<6} {r['verifier_verdict']:<12} "
+        verify_flag = "ON" if r["verifier_enabled"] else "OFF"
+        print(f"{r['id']:<4} {r['language']:<5} {r['index_condition']:<6} {verify_flag:<7} {r['verifier_verdict']:<12} "
               f"{r['retrieval_latency_ms']:<10.1f} {r['generation_latency_ms']:<10.1f} "
               f"{r['verification_latency_ms']:<11.1f} {r['total_latency_ms']:<10.1f} {q_preview}")
 
