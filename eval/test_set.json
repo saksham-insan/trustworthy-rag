@@ -1,0 +1,201 @@
+[
+    {
+      "id": "pmusp_eligibility",
+      "scheme_slug": "pmusp",
+      "scheme_name": "PM-USP Central Sector Scheme of Scholarship",
+      "category": "eligibility",
+      "questions": {
+        "en": "What is the eligibility for the PM-USP scholarship?",
+        "hi": "पीएम-यूएसपी छात्रवृत्ति के लिए पात्रता क्या है?",
+        "bn": "পিএম-ইউএসপি বৃত্তির জন্য যোগ্যতা কী?"
+      },
+      "expected_keywords": ["80th percentile", "4,50,000", "AICTE"],
+      "notes": "Verified from source content: 80th percentile cutoff, family income <= 4,50,000/year, AICTE-recognized institutions."
+    },
+    {
+      "id": "pmusp_benefits",
+      "scheme_slug": "pmusp",
+      "scheme_name": "PM-USP Central Sector Scheme of Scholarship",
+      "category": "benefits",
+      "questions": {
+        "en": "How much scholarship amount is given under PM-USP per year?",
+        "hi": "पीएम-यूएसपी के तहत प्रति वर्ष कितनी छात्रवृत्ति राशि दी जाती है?",
+        "bn": "পিএম-ইউএসপি-এর অধীনে বছরে কত বৃত্তির অর্থ দেওয়া হয়?"
+      },
+      "expected_keywords": ["12,000", "20,000", "82,000"],
+      "notes": "Verified: 12,000/yr graduation, 20,000/yr postgrad, 82,000 fresh scholarships/year."
+    },
+    {
+      "id": "pmusp_application",
+      "scheme_slug": "pmusp",
+      "scheme_name": "PM-USP Central Sector Scheme of Scholarship",
+      "category": "application_process",
+      "questions": {
+        "en": "How do I apply for the PM-USP scholarship?",
+        "hi": "पीएम-यूएसपी छात्रवृत्ति के लिए आवेदन कैसे करें?",
+        "bn": "পিএম-ইউএসপি বৃত্তির জন্য কীভাবে আবেদন করব?"
+      },
+      "expected_keywords": ["National Scholarships Portal", "OTR", "Aadhaar"],
+      "notes": "Verified: apply via National Scholarships Portal (NSP), One Time Registration (OTR), Aadhaar e-KYC."
+    },
+  
+    {
+      "id": "nmmss_eligibility",
+      "scheme_slug": "nmmss",
+      "scheme_name": "National Means-cum-Merit Scholarship Scheme",
+      "category": "eligibility",
+      "questions": {
+        "en": "What is the eligibility for the National Means-cum-Merit Scholarship?",
+        "hi": "राष्ट्रीय साधन-सह-योग्यता छात्रवृत्ति के लिए पात्रता क्या है?",
+        "bn": "জাতীয় সাধন-কাম-মেধা বৃত্তির জন্য যোগ্যতা কী?"
+      },
+      "expected_keywords": ["3,50,000", "55%", "Class VII"],
+      "notes": "Verified from retrieval testing: parental income <= 3,50,000/year, min 55% marks in Class VII exam (5% relaxation SC/ST)."
+    },
+    {
+      "id": "nmmss_benefits",
+      "scheme_slug": "nmmss",
+      "scheme_name": "National Means-cum-Merit Scholarship Scheme",
+      "category": "benefits",
+      "questions": {
+        "en": "How much scholarship money is given under NMMSS and to how many students?",
+        "hi": "एनएमएमएसएस के तहत कितनी छात्रवृत्ति राशि और कितने छात्रों को दी जाती है?",
+        "bn": "এনএমএমএসএস-এর অধীনে কত বৃত্তির অর্থ এবং কতজন শিক্ষার্থীকে দেওয়া হয়?"
+      },
+      "expected_keywords": ["12,000", "1,000 per month", "1,00,000"],
+      "notes": "Verified: 12,000/year (1,000/month), 1,00,000 fresh scholarships across the cycle."
+    },
+    {
+      "id": "nmmss_application",
+      "scheme_slug": "nmmss",
+      "scheme_name": "National Means-cum-Merit Scholarship Scheme",
+      "category": "application_process",
+      "questions": {
+        "en": "How is the selection test conducted for NMMSS?",
+        "hi": "एनएमएमएसएस के लिए चयन परीक्षा कैसे आयोजित की जाती है?",
+        "bn": "এনএমএমএসএস-এর জন্য নির্বাচন পরীক্ষা কীভাবে অনুষ্ঠিত হয়?"
+      },
+      "expected_keywords": ["State/UT", "MAT", "SAT"],
+      "notes": "Verified: State/UT conducts the test; consists of MAT and SAT components, 32% cutoff for SC/ST."
+    },
+  
+    {
+      "id": "pmvs_eligibility",
+      "scheme_slug": "pmvs",
+      "scheme_name": "Pradhan Mantri Vidyalaxmi (PM-Vidyalaxmi) Scheme",
+      "category": "eligibility",
+      "questions": {
+        "en": "What is the eligibility for the PM-Vidyalaxmi scheme?",
+        "hi": "पीएम-विद्यालक्ष्मी योजना के लिए पात्रता क्या है?",
+        "bn": "পিএম-বিদ্যালক্ষ্মী প্রকল্পের জন্য যোগ্যতা কী?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in 2-3 exact facts from your own data/raw/en/pmvs.txt (e.g. income limits, institution ranking criteria)."
+    },
+    {
+      "id": "pmvs_benefits",
+      "scheme_slug": "pmvs",
+      "scheme_name": "Pradhan Mantri Vidyalaxmi (PM-Vidyalaxmi) Scheme",
+      "category": "benefits",
+      "questions": {
+        "en": "What financial benefits does the PM-Vidyalaxmi scheme provide?",
+        "hi": "पीएम-विद्यालक्ष्मी योजना क्या वित्तीय लाभ प्रदान करती है?",
+        "bn": "পিএম-বিদ্যালক্ষ্মী প্রকল্প কী আর্থিক সুবিধা প্রদান করে?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in from data/raw/en/pmvs.txt (e.g. loan amount, interest subvention details)."
+    },
+    {
+      "id": "pmvs_application",
+      "scheme_slug": "pmvs",
+      "scheme_name": "Pradhan Mantri Vidyalaxmi (PM-Vidyalaxmi) Scheme",
+      "category": "application_process",
+      "questions": {
+        "en": "How do I apply for the PM-Vidyalaxmi scheme?",
+        "hi": "पीएम-विद्यालक्ष्मी योजना के लिए आवेदन कैसे करें?",
+        "bn": "পিএম-বিদ্যালক্ষ্মী প্রকল্পের জন্য কীভাবে আবেদন করব?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in application portal/process details from your own source file."
+    },
+  
+    {
+      "id": "pmuspy_eligibility",
+      "scheme_slug": "pm-uspy",
+      "scheme_name": "PM-USPY Central Sector Interest Subsidy Scheme",
+      "category": "eligibility",
+      "questions": {
+        "en": "What is the eligibility for the PM-USPY interest subsidy scheme?",
+        "hi": "पीएम-यूएसपीवाई ब्याज सब्सिडी योजना के लिए पात्रता क्या है?",
+        "bn": "পিএম-ইউএসপিওয়াই সুদ ভর্তুকি প্রকল্পের জন্য যোগ্যতা কী?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in from data/raw/en/pm-uspy.txt (e.g. income ceiling, loan type covered)."
+    },
+    {
+      "id": "pmuspy_benefits",
+      "scheme_slug": "pm-uspy",
+      "scheme_name": "PM-USPY Central Sector Interest Subsidy Scheme",
+      "category": "benefits",
+      "questions": {
+        "en": "What interest subsidy benefit does PM-USPY provide on education loans?",
+        "hi": "पीएम-यूएसपीवाई शिक्षा ऋण पर क्या ब्याज सब्सिडी लाभ प्रदान करती है?",
+        "bn": "পিএম-ইউএসপিওয়াই শিক্ষা ঋণে কী সুদ ভর্তুকি সুবিধা প্রদান করে?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in exact subsidy percentage/moratorium period from your source file."
+    },
+    {
+      "id": "pmuspy_application",
+      "scheme_slug": "pm-uspy",
+      "scheme_name": "PM-USPY Central Sector Interest Subsidy Scheme",
+      "category": "application_process",
+      "questions": {
+        "en": "How do I apply for the PM-USPY interest subsidy scheme?",
+        "hi": "पीएम-यूएसपीवाई ब्याज सब्सिडी योजना के लिए आवेदन कैसे करें?",
+        "bn": "পিএম-ইউএসপিওয়াই সুদ ভর্তুকি প্রকল্পের জন্য কীভাবে আবেদন করব?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in application/portal details from your source file."
+    },
+  
+    {
+      "id": "pmyasasvi_eligibility",
+      "scheme_slug": "pm-yasasvi",
+      "scheme_name": "PM-YASASVI: Top Class College Education for OBC, EBC and DNT Students",
+      "category": "eligibility",
+      "questions": {
+        "en": "What is the eligibility for the PM-YASASVI scheme?",
+        "hi": "पीएम-यशस्वी योजना के लिए पात्रता क्या है?",
+        "bn": "পিএম-যশস্বী প্রকল্পের জন্য যোগ্যতা কী?"
+      },
+      "expected_keywords": ["OBC", "EBC", "DNT"],
+      "notes": "Category confirmed from scheme name (OBC/EBC/DNT students). Add income limit + academic cutoff from your source file if available."
+    },
+    {
+      "id": "pmyasasvi_benefits",
+      "scheme_slug": "pm-yasasvi",
+      "scheme_name": "PM-YASASVI: Top Class College Education for OBC, EBC and DNT Students",
+      "category": "benefits",
+      "questions": {
+        "en": "What financial benefits does PM-YASASVI provide to students?",
+        "hi": "पीएम-यशस्वी छात्रों को क्या वित्तीय लाभ प्रदान करती है?",
+        "bn": "পিএম-যশস্বী শিক্ষার্থীদের কী আর্থিক সুবিধা প্রদান করে?"
+      },
+      "expected_keywords": [],
+      "notes": "TODO: fill in exact amounts from data/raw/en/pm-yasasvi.txt."
+    },
+    {
+      "id": "pmyasasvi_application",
+      "scheme_slug": "pm-yasasvi",
+      "scheme_name": "PM-YASASVI: Top Class College Education for OBC, EBC and DNT Students",
+      "category": "application_process",
+      "questions": {
+        "en": "How do I apply for the PM-YASASVI scheme?",
+        "hi": "पीएम-यशस्वी योजना के लिए आवेदन कैसे करें?",
+        "bn": "পিএম-যশস্বী প্রকল্পের জন্য কীভাবে আবেদন করব?"
+      },
+      "expected_keywords": ["National Scholarships Portal"],
+      "notes": "Likely uses NSP like other schemes — verify in your source file and add specifics if different."
+    }
+  ]
