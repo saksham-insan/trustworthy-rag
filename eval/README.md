@@ -35,24 +35,10 @@ generated answer. It's not perfect (a good answer could phrase things differentl
 factual government-scheme content (specific numbers, named portals, named categories) it's
 a reasonable, zero-manual-effort signal, especially combined with the verifier's own verdict.
 
-## What's left for you to fill in
+## Status: complete
 
-7 of the 15 entries have **empty `expected_keywords`** — for PMVS, PM-USPY, and PM-YASASVI,
-I only saw fragments of your source content during earlier testing, not the full text, so I
-deliberately did NOT invent numbers I wasn't sure about (that would corrupt your evaluation
-ground truth).
-
-**To fill these in (~10 minutes total):** open your own files —
-```
-data/raw/en/pmvs.txt
-data/raw/en/pm-uspy.txt
-data/raw/en/pm-yasasvi.txt
-```
-— and for each, pick 2-3 short, distinctive facts (an exact ₹ amount, a percentage, a named
-portal/institution) that a correct answer to that question should mention. Add them to the
-matching entry's `expected_keywords` list in `test_set.json`. Keep the `notes` field's TODO
-text or replace it with a short note on where you got the fact from — doesn't need to be
-formal, just enough that you remember later.
+All 15 entries now have verified `expected_keywords` sourced directly from the actual
+scheme content (no invented facts). The test set is ready to use for evaluation.
 
 ## What this test set does NOT do yet
 
