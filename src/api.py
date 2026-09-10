@@ -33,6 +33,7 @@ class QueryRequest(BaseModel):
     language: str          # "en" | "hi" | "bn"
     index_condition: str = "mono"   # "mono" | "multi"
     verifier_enabled: bool = True   # set False to test the pipeline WITHOUT the verifier (RQ2 ablation)
+    regenerate_on_failure: bool = True  # if verifier flags the answer, try to correct it once
 
 
 class QueryResponse(BaseModel):
@@ -48,7 +49,11 @@ class QueryResponse(BaseModel):
     retrieval_latency_ms: float
     generation_latency_ms: float
     verification_latency_ms: float
+    regeneration_latency_ms: float
     total_latency_ms: float
+    was_regenerated: bool
+    original_answer: str | None
+    original_verdict: str | None
 
 
 @app.get("/")
@@ -66,7 +71,10 @@ def query(request: QueryRequest):
         raise HTTPException(status_code=400, detail="index_condition must be 'mono' or 'multi'")
 
     try:
-        record = run_pipeline(request.question, request.language, request.index_condition, request.verifier_enabled)
+        record = run_pipeline(
+            request.question, request.language, request.index_condition,
+            request.verifier_enabled, request.regenerate_on_failure,
+        )
     except RuntimeError as e:
         # RuntimeError here means a setup problem (e.g. index not built yet) —
         # that's a client-fixable issue, not a server crash, so 400 not 500.
@@ -87,5 +95,9 @@ def query(request: QueryRequest):
         retrieval_latency_ms=record["retrieval_latency_ms"],
         generation_latency_ms=record["generation_latency_ms"],
         verification_latency_ms=record["verification_latency_ms"],
+        regeneration_latency_ms=record["regeneration_latency_ms"],
         total_latency_ms=record["total_latency_ms"],
+        was_regenerated=record["was_regenerated"],
+        original_answer=record["original_answer"],
+        original_verdict=record["original_verdict"],
     )

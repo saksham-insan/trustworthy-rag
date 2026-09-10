@@ -87,6 +87,73 @@ def generate_answer(question: str, context_chunks: list[str], lang: str) -> str:
     return response.text.strip()
 
 
+def build_regeneration_prompt(
+    question: str, context_chunks: list[str], lang: str,
+    previous_answer: str, unsupported_claims: list[str], verifier_explanation: str,
+) -> str:
+    """
+    Builds a corrective prompt: tells the generator EXACTLY what the
+    verifier flagged as unsupported, and asks for a revised answer using
+    only the given context. This is what turns the verifier from a
+    "label only" pass into one that actually improves the final answer
+    (the RQ2 gap identified during evaluation).
+    """
+    lang_name = LANGUAGE_NAMES.get(lang, "English")
+    context_block = "\n\n".join(f"[Context {i+1}]\n{c}" for i, c in enumerate(context_chunks))
+    claims_block = "\n".join(f"- {c}" for c in unsupported_claims) if unsupported_claims else "(no specific claims listed)"
+
+    prompt = f"""You are revising a previous answer that a fact-checker found problems with. Use ONLY the context below — do not use outside knowledge.
+
+Context:
+{context_block}
+
+Question: {question}
+
+Your previous answer:
+{previous_answer}
+
+A fact-checker reviewed this answer and found it PROBLEMATIC for this reason:
+{verifier_explanation}
+
+Specific claims flagged as NOT supported by the context:
+{claims_block}
+
+Instructions:
+- Write a corrected answer that removes or fixes the flagged claims.
+- Only include information that is explicitly stated in the context above.
+- If removing the unsupported claims leaves too little to answer the question, clearly say you don't have enough information — do not guess.
+- Answer in {lang_name}, matching the language of the question.
+- Be concise and factual.
+
+Corrected answer:"""
+    return prompt
+
+
+def regenerate_answer(
+    question: str, context_chunks: list[str], lang: str,
+    previous_answer: str, unsupported_claims: list[str], verifier_explanation: str,
+) -> str:
+    api_key = os.getenv("GEMINI_API_KEY")
+    client = genai.Client(api_key=api_key)
+
+    prompt = build_regeneration_prompt(
+        question, context_chunks, lang, previous_answer, unsupported_claims, verifier_explanation
+    )
+
+    def call():
+        return client.models.generate_content(
+            model=GEMINI_MODEL_NAME,
+            contents=prompt,
+            config={
+                "temperature": GENERATION_TEMPERATURE,
+                "max_output_tokens": GENERATION_MAX_TOKENS,
+            },
+        )
+
+    response = retry_with_backoff(call, label="Gemini regeneration")
+    return response.text.strip()
+
+
 def retrieve_and_generate(question: str, lang: str) -> dict:
     """Convenience wrapper: retrieve top-k chunks (monolingual condition) then generate an answer."""
     import chromadb

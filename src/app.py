@@ -38,6 +38,12 @@ verifier_enabled = st.checkbox(
     value=True,
     help="Turn off to see the generator's raw answer with no hallucination check — useful for comparing with/without the verifier (RQ2).",
 )
+regenerate_on_failure = st.checkbox(
+    "Auto-correct if verifier flags the answer",
+    value=True,
+    disabled=not verifier_enabled,
+    help="If the verifier finds unsupported claims, ask the generator to fix them once, using the verifier's specific feedback.",
+)
 
 if st.button("Ask", type="primary") and question.strip():
     with st.spinner("Retrieving context, generating answer" + (", verifying..." if verifier_enabled else "...")):
@@ -49,6 +55,7 @@ if st.button("Ask", type="primary") and question.strip():
                     "language": language,
                     "index_condition": index_condition,
                     "verifier_enabled": verifier_enabled,
+                    "regenerate_on_failure": regenerate_on_failure,
                 },
                 timeout=180,  # generous: retries on rate limits can add 10-30s+ per stage
             )
@@ -70,6 +77,11 @@ if st.button("Ask", type="primary") and question.strip():
             st.error(f"Request failed: {e}")
             st.stop()
 
+    if result.get("was_regenerated"):
+        with st.expander("⚠️ Verifier flagged the first answer — corrected version shown below", expanded=True):
+            st.caption(f"Original verdict: {result['original_verdict']}")
+            st.text(result["original_answer"])
+
     st.subheader("Answer")
     st.write(result["answer"])
 
@@ -77,14 +89,15 @@ if st.button("Ask", type="primary") and question.strip():
     verdict_color = {
         "SUPPORTED": "green", "UNSUPPORTED": "red", "PARTIALLY_SUPPORTED": "orange", "NOT_VERIFIED": "gray",
     }.get(verdict, "gray")
-    st.markdown(f"**Verifier verdict:** :{verdict_color}[{verdict}]")
+    st.markdown(f"**Verifier verdict:** :{verdict_color}[{verdict}]" + (" (after correction)" if result.get("was_regenerated") else ""))
     st.caption(result["verifier_explanation"])
 
-    latency_col1, latency_col2, latency_col3, latency_col4 = st.columns(4)
+    latency_col1, latency_col2, latency_col3, latency_col4, latency_col5 = st.columns(5)
     latency_col1.metric("Retrieval", f"{result['retrieval_latency_ms']:.0f} ms")
     latency_col2.metric("Generation", f"{result['generation_latency_ms']:.0f} ms")
     latency_col3.metric("Verification", f"{result['verification_latency_ms']:.0f} ms")
-    latency_col4.metric("Total", f"{result['total_latency_ms']:.0f} ms")
+    latency_col4.metric("Regeneration", f"{result['regeneration_latency_ms']:.0f} ms")
+    latency_col5.metric("Total", f"{result['total_latency_ms']:.0f} ms")
 
     with st.expander(f"Retrieved context ({len(result['retrieved_chunks'])} chunks)"):
         for i, (chunk, lang) in enumerate(zip(result["retrieved_chunks"], result["retrieved_languages"]), start=1):

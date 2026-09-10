@@ -31,8 +31,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import CHROMA_MONO_DIR, CHROMA_MULTI_DIR, EMBEDDING_MODEL_NAME, EVAL_DB_PATH, TOP_K
-from src.generator import generate_answer
+from src.generator import generate_answer, regenerate_answer
 from src.verifier import verify_answer
+
+# Verdicts that trigger a regeneration attempt when regenerate_on_failure=True.
+# NOT_VERIFIED/PARSE_ERROR are excluded — regenerating without a real verdict
+# to react to would just be a second random guess, not a targeted correction.
+REGENERATION_TRIGGER_VERDICTS = {"UNSUPPORTED", "PARTIALLY_SUPPORTED"}
 
 
 SCHEMA = """
@@ -53,7 +58,11 @@ CREATE TABLE IF NOT EXISTS logs (
     retrieval_latency_ms REAL,
     generation_latency_ms REAL,
     verification_latency_ms REAL,
-    total_latency_ms REAL
+    regeneration_latency_ms REAL DEFAULT 0,
+    total_latency_ms REAL,
+    was_regenerated INTEGER NOT NULL DEFAULT 0,  -- 1 = answer was corrected after a failed verification
+    original_answer TEXT,                         -- the pre-regeneration answer, if regenerated
+    original_verdict TEXT                          -- the verdict that triggered regeneration, if any
 );
 """
 
@@ -62,12 +71,19 @@ def init_db():
     EVAL_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(EVAL_DB_PATH)
     conn.execute(SCHEMA)
-    # Migration: if the DB already existed from before this column was added,
-    # add it now. Harmless no-op if the column is already there.
-    try:
-        conn.execute("ALTER TABLE logs ADD COLUMN verifier_enabled INTEGER NOT NULL DEFAULT 1")
-    except sqlite3.OperationalError:
-        pass  # column already exists
+    # Migration: if the DB already existed from before these columns were
+    # added, add them now. Harmless no-op if a column already exists.
+    for statement in [
+        "ALTER TABLE logs ADD COLUMN verifier_enabled INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE logs ADD COLUMN regeneration_latency_ms REAL DEFAULT 0",
+        "ALTER TABLE logs ADD COLUMN was_regenerated INTEGER NOT NULL DEFAULT 0",
+        "ALTER TABLE logs ADD COLUMN original_answer TEXT",
+        "ALTER TABLE logs ADD COLUMN original_verdict TEXT",
+    ]:
+        try:
+            conn.execute(statement)
+        except sqlite3.OperationalError:
+            pass  # column already exists
     conn.commit()
     conn.close()
 
@@ -109,7 +125,10 @@ def retrieve(question: str, lang: str, index_condition: str, model):
     return chunks, chunk_ids, langs, scheme_slugs, latency_ms
 
 
-def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifier_enabled: bool = True) -> dict:
+def run_pipeline(
+    question: str, lang: str, index_condition: str = "mono",
+    verifier_enabled: bool = True, regenerate_on_failure: bool = True,
+) -> dict:
     from sentence_transformers import SentenceTransformer
 
     model = SentenceTransformer(EMBEDDING_MODEL_NAME, device="cpu")
@@ -126,10 +145,35 @@ def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifi
 
     # 3. Verify (skippable — this is the RQ2 ablation: does the verifier
     # actually help? To measure that, you need answers WITHOUT it too.)
+    was_regenerated = False
+    original_answer = None
+    original_verdict = None
+    regeneration_ms = 0.0
+
     if verifier_enabled:
         verify_start = time.perf_counter()
         verdict = verify_answer(question, chunks, answer)
         verification_ms = (time.perf_counter() - verify_start) * 1000
+
+        # 3b. Regenerate on failure — this is the fix for the "verifier only
+        # labels, doesn't improve" gap. If the verifier flagged the answer,
+        # give the generator specific feedback (what was unsupported, and
+        # why) and ask for a corrected answer, then re-verify the result.
+        # We only do this ONCE per question — no infinite correction loops.
+        if regenerate_on_failure and verdict.get("verdict") in REGENERATION_TRIGGER_VERDICTS:
+            regen_start = time.perf_counter()
+            original_answer = answer
+            original_verdict = verdict.get("verdict")
+
+            answer = regenerate_answer(
+                question, chunks, lang,
+                previous_answer=original_answer,
+                unsupported_claims=verdict.get("unsupported_claims", []),
+                verifier_explanation=verdict.get("explanation", ""),
+            )
+            verdict = verify_answer(question, chunks, answer)  # re-check the corrected answer
+            was_regenerated = True
+            regeneration_ms = (time.perf_counter() - regen_start) * 1000
     else:
         verdict = {
             "verdict": "NOT_VERIFIED",
@@ -157,7 +201,11 @@ def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifi
         "retrieval_latency_ms": retrieval_ms,
         "generation_latency_ms": generation_ms,
         "verification_latency_ms": verification_ms,
+        "regeneration_latency_ms": regeneration_ms,
         "total_latency_ms": total_ms,
+        "was_regenerated": was_regenerated,
+        "original_answer": original_answer,
+        "original_verdict": original_verdict,
     }
 
     log_to_db(record)
@@ -173,8 +221,10 @@ def log_to_db(record: dict):
             timestamp, question, language, index_condition, verifier_enabled,
             retrieved_chunk_ids, retrieved_chunks, retrieved_languages,
             answer, verifier_verdict, verifier_explanation, verifier_unsupported_claims,
-            retrieval_latency_ms, generation_latency_ms, verification_latency_ms, total_latency_ms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            retrieval_latency_ms, generation_latency_ms, verification_latency_ms,
+            regeneration_latency_ms, total_latency_ms,
+            was_regenerated, original_answer, original_verdict
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             record["timestamp"],
@@ -192,7 +242,11 @@ def log_to_db(record: dict):
             record["retrieval_latency_ms"],
             record["generation_latency_ms"],
             record["verification_latency_ms"],
+            record["regeneration_latency_ms"],
             record["total_latency_ms"],
+            int(record["was_regenerated"]),
+            record["original_answer"],
+            record["original_verdict"],
         ),
     )
     conn.commit()
@@ -201,20 +255,28 @@ def log_to_db(record: dict):
 
 def main():
     if len(sys.argv) < 3:
-        print('Usage: python src/pipeline.py "your question" <lang: en|hi|bn> [mono|multi] [verify|noverify]')
+        print('Usage: python src/pipeline.py "your question" <lang: en|hi|bn> [mono|multi] [verify|noverify] [regen|noregen]')
         sys.exit(1)
 
     question = sys.argv[1]
     lang = sys.argv[2]
     index_condition = sys.argv[3] if len(sys.argv) > 3 else "mono"
     verifier_enabled = (sys.argv[4] != "noverify") if len(sys.argv) > 4 else True
+    regenerate_on_failure = (sys.argv[5] != "noregen") if len(sys.argv) > 5 else True
 
-    print(f"Question: {question!r}  (language: {lang}, index: {index_condition}, verifier: {'ON' if verifier_enabled else 'OFF'})")
+    print(f"Question: {question!r}  (language: {lang}, index: {index_condition}, "
+          f"verifier: {'ON' if verifier_enabled else 'OFF'}, regenerate: {'ON' if regenerate_on_failure else 'OFF'})")
     print("Running pipeline...\n")
 
-    record = run_pipeline(question, lang, index_condition, verifier_enabled)
+    record = run_pipeline(question, lang, index_condition, verifier_enabled, regenerate_on_failure)
 
-    print("=== Answer ===")
+    if record["was_regenerated"]:
+        print("=== Original answer (flagged by verifier) ===")
+        print(record["original_answer"])
+        print(f"\n=== Original verdict: {record['original_verdict']} ===")
+        print("\n--- Regenerated after corrective feedback ---\n")
+
+    print("=== Final answer ===")
     print(record["answer"])
     print(f"\n=== Verifier verdict: {record['verifier_verdict']} ===")
     print(record["verifier_explanation"])
@@ -222,6 +284,8 @@ def main():
     print(f"  Retrieval:    {record['retrieval_latency_ms']:.1f} ms")
     print(f"  Generation:   {record['generation_latency_ms']:.1f} ms")
     print(f"  Verification: {record['verification_latency_ms']:.1f} ms")
+    if record["was_regenerated"]:
+        print(f"  Regeneration: {record['regeneration_latency_ms']:.1f} ms")
     print(f"  Total:        {record['total_latency_ms']:.1f} ms")
     print(f"\nLogged to {EVAL_DB_PATH}")
 
