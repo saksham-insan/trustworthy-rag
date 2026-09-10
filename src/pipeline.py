@@ -73,7 +73,7 @@ def init_db():
 
 
 def retrieve(question: str, lang: str, index_condition: str, model):
-    """Retrieve top-k chunks under the given index condition. Returns (chunks, ids, langs, latency_ms)."""
+    """Retrieve top-k chunks under the given index condition. Returns (chunks, ids, langs, scheme_slugs, latency_ms)."""
     import chromadb
 
     start = time.perf_counter()
@@ -104,8 +104,9 @@ def retrieve(question: str, lang: str, index_condition: str, model):
     chunk_ids = results["ids"][0]
     chunks = results["documents"][0]
     langs = [m["language"] for m in results["metadatas"][0]]
+    scheme_slugs = [m.get("scheme_slug", "") for m in results["metadatas"][0]]
 
-    return chunks, chunk_ids, langs, latency_ms
+    return chunks, chunk_ids, langs, scheme_slugs, latency_ms
 
 
 def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifier_enabled: bool = True) -> dict:
@@ -116,7 +117,7 @@ def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifi
     total_start = time.perf_counter()
 
     # 1. Retrieve
-    chunks, chunk_ids, retrieved_langs, retrieval_ms = retrieve(question, lang, index_condition, model)
+    chunks, chunk_ids, retrieved_langs, retrieved_scheme_slugs, retrieval_ms = retrieve(question, lang, index_condition, model)
 
     # 2. Generate
     gen_start = time.perf_counter()
@@ -148,6 +149,7 @@ def run_pipeline(question: str, lang: str, index_condition: str = "mono", verifi
         "retrieved_chunk_ids": chunk_ids,
         "retrieved_chunks": chunks,
         "retrieved_languages": retrieved_langs,
+        "retrieved_scheme_slugs": retrieved_scheme_slugs,
         "answer": answer,
         "verifier_verdict": verdict.get("verdict", "PARSE_ERROR"),
         "verifier_explanation": verdict.get("explanation", ""),
