@@ -84,6 +84,13 @@ def run_one(entry: dict, lang: str, index_condition: str, verifier_enabled: bool
         retrieval_correct = expected_scheme in retrieved_schemes
         keyword_coverage = compute_keyword_coverage(record["answer"], expected_keywords)
 
+        was_regenerated = record.get("was_regenerated", False)
+        original_keyword_coverage = None
+        if was_regenerated and record.get("original_answer"):
+            # Lets us directly compare: did regeneration actually improve
+            # factual coverage, or just change the wording?
+            original_keyword_coverage = compute_keyword_coverage(record["original_answer"], expected_keywords)
+
         return {
             "run_label": run_label,
             "question_id": entry["id"],
@@ -98,9 +105,13 @@ def run_one(entry: dict, lang: str, index_condition: str, verifier_enabled: bool
             "retrieval_correct": retrieval_correct,
             "keyword_coverage": keyword_coverage,
             "verifier_verdict": record["verifier_verdict"],
+            "was_regenerated": was_regenerated,
+            "original_verdict": record.get("original_verdict"),
+            "original_keyword_coverage": original_keyword_coverage,
             "retrieval_latency_ms": record["retrieval_latency_ms"],
             "generation_latency_ms": record["generation_latency_ms"],
             "verification_latency_ms": record["verification_latency_ms"],
+            "regeneration_latency_ms": record.get("regeneration_latency_ms", 0.0),
             "total_latency_ms": record["total_latency_ms"],
             "error": None,
         }
@@ -121,9 +132,13 @@ def run_one(entry: dict, lang: str, index_condition: str, verifier_enabled: bool
             "retrieval_correct": None,
             "keyword_coverage": None,
             "verifier_verdict": None,
+            "was_regenerated": None,
+            "original_verdict": None,
+            "original_keyword_coverage": None,
             "retrieval_latency_ms": None,
             "generation_latency_ms": None,
             "verification_latency_ms": None,
+            "regeneration_latency_ms": None,
             "total_latency_ms": None,
             "error": str(e),
         }
@@ -171,7 +186,8 @@ def main():
                         rc = "CORRECT" if result["retrieval_correct"] else "WRONG"
                         kc = result["keyword_coverage"]
                         kc_str = f"{kc:.0%}" if kc is not None else "n/a"
-                        print(f"retrieval={rc} keywords={kc_str} verdict={result['verifier_verdict']}")
+                        regen_str = " [REGENERATED]" if result["was_regenerated"] else ""
+                        print(f"retrieval={rc} keywords={kc_str} verdict={result['verifier_verdict']}{regen_str}")
 
     elapsed_min = (time.perf_counter() - start_time) / 60
     print(f"\nDone. {completed - failed}/{completed} runs succeeded ({failed} failed) in {elapsed_min:.1f} minutes.")

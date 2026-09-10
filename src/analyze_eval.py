@@ -88,7 +88,7 @@ def rq2_verifier_effect(results):
     verified = [r for r in results if r["run_label"] == "mono_verified" and r["error"] is None]
     unverified = [r for r in results if r["run_label"] == "mono_unverified" and r["error"] is None]
 
-    print("  Verifier verdict distribution (verifier ON):")
+    print("  Verifier verdict distribution (verifier ON, AFTER any regeneration):")
     verdict_counts = defaultdict(int)
     for r in verified:
         verdict_counts[r["verifier_verdict"]] += 1
@@ -101,6 +101,29 @@ def rq2_verifier_effect(results):
     u_str = f"{unverified_kw:.0%}" if unverified_kw is not None else "n/a"
     print(f"\n  Avg keyword coverage - verifier ON:  {v_str}")
     print(f"  Avg keyword coverage - verifier OFF: {u_str}")
+
+    # Regeneration: how often did the verifier actually trigger a correction,
+    # and did that correction measurably help?
+    regenerated = [r for r in verified if r.get("was_regenerated")]
+    print(f"\n  Answers regenerated after being flagged: {len(regenerated)}/{len(verified)} ({pct(len(regenerated), len(verified))})")
+    if regenerated:
+        original_verdicts = defaultdict(int)
+        for r in regenerated:
+            original_verdicts[r["original_verdict"]] += 1
+        print("  Original verdicts that triggered regeneration:")
+        for verdict, count in sorted(original_verdicts.items()):
+            print(f"    {verdict}: {count}")
+
+        before_kw = avg([r["original_keyword_coverage"] for r in regenerated if r["original_keyword_coverage"] is not None])
+        after_kw = avg([r["keyword_coverage"] for r in regenerated if r["keyword_coverage"] is not None])
+        before_str = f"{before_kw:.0%}" if before_kw is not None else "n/a"
+        after_str = f"{after_kw:.0%}" if after_kw is not None else "n/a"
+        print(f"  Avg keyword coverage on regenerated answers - BEFORE correction: {before_str}")
+        print(f"  Avg keyword coverage on regenerated answers - AFTER correction:  {after_str}")
+
+        avg_regen_latency = avg([r["regeneration_latency_ms"] for r in regenerated if r["regeneration_latency_ms"] is not None])
+        if avg_regen_latency is not None:
+            print(f"  Avg extra latency from regeneration: {avg_regen_latency:.0f}ms (only paid on flagged answers)")
     print()
 
 
