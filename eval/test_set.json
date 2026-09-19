@@ -555,5 +555,164 @@
     },
     "expected_keywords": ["no application process", "No documents"],
     "notes": "Verified: unusual case, worth testing specifically — the scheme explicitly states there is NO application process and NO documents required; it's automatic for all eligible students. Good test of whether the system avoids inventing a fake process."
+  },
+  {
+    "id": "psgsdip_eligibility",
+    "scheme_slug": "psgs-dip",
+    "scheme_name": "Pragati Scholarship Scheme for Girl Students (Technical Diploma)",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Pragati Scholarship for Girl Students in technical diploma courses?",
+      "hi": "तकनीकी डिप्लोमा में छात्राओं के लिए प्रगति छात्रवृत्ति की पात्रता क्या है?",
+      "bn": "প্রযুক্তিগত ডিপ্লোমায় ছাত্রীদের জন্য প্রগতি বৃত্তির যোগ্যতা কী?"
+    },
+    "expected_keywords": ["Girl Student", "8,00,000", "AICTE"],
+    "notes": "Verified: girl students admitted to 1st/2nd year of AICTE-approved diploma course, family income up to 8,00,000/annum."
+  },
+  {
+    "id": "psgsdip_benefits",
+    "scheme_slug": "psgs-dip",
+    "scheme_name": "Pragati Scholarship Scheme for Girl Students (Technical Diploma)",
+    "category": "benefits",
+    "questions": {
+      "en": "How much does the Pragati Scholarship for Girl Students provide per year?",
+      "hi": "प्रगति छात्रवृत्ति छात्राओं को प्रति वर्ष कितनी राशि प्रदान करती है?",
+      "bn": "প্রগতি বৃত্তি ছাত্রীদের বছরে কত অর্থ প্রদান করে?"
+    },
+    "expected_keywords": ["50,000", "3 years"],
+    "notes": "Verified: 50,000/annum, up to a maximum of 3 years for first-year admitted students."
+  },
+  {
+    "id": "psgsdip_application",
+    "scheme_slug": "psgs-dip",
+    "scheme_name": "Pragati Scholarship Scheme for Girl Students (Technical Diploma)",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Pragati Scholarship for Girl Students?",
+      "hi": "प्रगति छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "প্রগতি বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["National Scholarships Portal", "DIGILOCKER"],
+    "notes": "Verified: apply online via National Scholarships Portal; credential verification through DIGILOCKER."
+  },
+
+  {
+    "id": "sgrcsl_eligibility",
+    "scheme_slug": "sgrcsl",
+    "scheme_name": "Scheme for Grant of Rewards to the Children of Salt Labourers",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Rewards Scheme for Children of Salt Labourers?",
+      "hi": "नमक श्रमिकों के बच्चों के लिए पुरस्कार योजना की पात्रता क्या है?",
+      "bn": "লবণ শ্রমিকদের সন্তানদের জন্য পুরস্কার প্রকল্পের যোগ্যতা কী?"
+    },
+    "expected_keywords": ["one year", "Class VI", "first attempt"],
+    "notes": "Verified: parent must have one year of continuous service in salt works; child must be in Class VI to XII and passed in the first attempt."
+  },
+  {
+    "id": "sgrcsl_benefits",
+    "scheme_slug": "sgrcsl",
+    "scheme_name": "Scheme for Grant of Rewards to the Children of Salt Labourers",
+    "category": "benefits",
+    "questions": {
+      "en": "What reward amount does the Salt Labourers' Children scheme provide by class?",
+      "hi": "नमक श्रमिकों के बच्चों की योजना कक्षा के अनुसार कितना पुरस्कार प्रदान करती है?",
+      "bn": "লবণ শ্রমিকদের সন্তান প্রকল্প শ্রেণী অনুযায়ী কত পুরস্কার প্রদান করে?"
+    },
+    "expected_keywords": ["1000", "1500", "2000"],
+    "notes": "Verified: 1000 for classes VI-VIII, 1500 for classes IX-X, 2000 for classes XI-XII."
+  },
+  {
+    "id": "sgrcsl_application",
+    "scheme_slug": "sgrcsl",
+    "scheme_name": "Scheme for Grant of Rewards to the Children of Salt Labourers",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Salt Labourers' Children reward scheme?",
+      "hi": "नमक श्रमिकों के बच्चों की पुरस्कार योजना के लिए आवेदन कैसे करें?",
+      "bn": "লবণ শ্রমিকদের সন্তান পুরস্কার প্রকল্পের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["Salt Commissioner", "Jaipur"],
+    "notes": "Verified: application sent to the Salt Commissioner, Jaipur, through the employer."
+  },
+
+  {
+    "id": "tcesc_eligibility",
+    "scheme_slug": "tce-sc",
+    "scheme_name": "Top Class Education for Scheduled Caste Students",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Top Class Education scheme for Scheduled Caste students?",
+      "hi": "अनुसूचित जाति छात्रों के लिए टॉप क्लास एजुकेशन योजना की पात्रता क्या है?",
+      "bn": "তফসিলি জাতির শিক্ষার্থীদের জন্য টপ ক্লাস এডুকেশন প্রকল্পের যোগ্যতা কী?"
+    },
+    "expected_keywords": ["Scheduled Caste", "8,00,000", "notified institution"],
+    "notes": "Verified: must belong to SC category, admitted to a notified institution, family income up to 8,00,000/annum."
+  },
+  {
+    "id": "tcesc_benefits",
+    "scheme_slug": "tce-sc",
+    "scheme_name": "Top Class Education for Scheduled Caste Students",
+    "category": "benefits",
+    "questions": {
+      "en": "What academic allowance does the Top Class Education scheme provide for SC students?",
+      "hi": "टॉप क्लास एजुकेशन योजना अनुसूचित जाति छात्रों को क्या शैक्षणिक भत्ता प्रदान करती है?",
+      "bn": "টপ ক্লাস এডুকেশন প্রকল্প তফসিলি জাতির শিক্ষার্থীদের কী একাডেমিক ভাতা প্রদান করে?"
+    },
+    "expected_keywords": ["86,000", "41,000", "2,00,000"],
+    "notes": "Verified: academic allowance 86,000 in first year, 41,000 each subsequent year; private institution fee ceiling 2,00,000/annum."
+  },
+  {
+    "id": "tcesc_application",
+    "scheme_slug": "tce-sc",
+    "scheme_name": "Top Class Education for Scheduled Caste Students",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Top Class Education scheme for Scheduled Caste students?",
+      "hi": "अनुसूचित जाति छात्रों के लिए टॉप क्लास एजुकेशन योजना के लिए आवेदन कैसे करें?",
+      "bn": "তফসিলি জাতির শিক্ষার্থীদের জন্য টপ ক্লাস এডুকেশন প্রকল্পের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["scholarships.gov.in", "New Registration"],
+    "notes": "Verified: apply online at scholarships.gov.in via New Registration."
+  },
+
+  {
+    "id": "tloiis_eligibility",
+    "scheme_slug": "tloiis",
+    "scheme_name": "The Lokpal of India Internship Scheme",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Lokpal of India Internship Scheme?",
+      "hi": "लोकपाल ऑफ इंडिया इंटर्नशिप योजना के लिए पात्रता क्या है?",
+      "bn": "লোকপাল অফ ইন্ডিয়া ইন্টার্নশিপ প্রকল্পের জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["75%", "law", "political science"],
+    "notes": "Verified: must have secured at least 75% in 12th class, pursuing law/political science/public administration/policy/management/economics/human rights."
+  },
+  {
+    "id": "tloiis_benefits",
+    "scheme_slug": "tloiis",
+    "scheme_name": "The Lokpal of India Internship Scheme",
+    "category": "benefits",
+    "questions": {
+      "en": "What stipend and benefits does the Lokpal of India Internship Scheme provide?",
+      "hi": "लोकपाल ऑफ इंडिया इंटर्नशिप योजना क्या वजीफा और लाभ प्रदान करती है?",
+      "bn": "লোকপাল অফ ইন্ডিয়া ইন্টার্নশিপ প্রকল্প কী উপবৃত্তি এবং সুবিধা প্রদান করে?"
+    },
+    "expected_keywords": ["10,000", "certificate"],
+    "notes": "Verified: stipend of 10,000/month, plus a certificate on successful completion; duration up to 3 months."
+  },
+  {
+    "id": "tloiis_application",
+    "scheme_slug": "tloiis",
+    "scheme_name": "The Lokpal of India Internship Scheme",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Lokpal of India Internship Scheme?",
+      "hi": "लोकपाल ऑफ इंडिया इंटर्नशिप योजना के लिए आवेदन कैसे करें?",
+      "bn": "লোকপাল অফ ইন্ডিয়া ইন্টার্নশিপ প্রকল্পের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["Annexure-I", "New Delhi"],
+    "notes": "Verified: apply offline via institute using the Annexure-I form, sent by post to New Delhi."
   }
 ]
