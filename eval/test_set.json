@@ -396,5 +396,164 @@
     },
     "expected_keywords": ["National Scholarship Portal", "host institution"],
     "notes": "Verified: apply online via National Scholarship Portal; the host institution must verify the online application."
+  },
+  {
+    "id": "postdis_eligibility",
+    "scheme_slug": "post-dis",
+    "scheme_name": "Post Matric Scholarship for Students With Disabilities",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Post Matric Scholarship for Students with Disabilities?",
+      "hi": "विकलांग छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति के लिए पात्रता क्या है?",
+      "bn": "প্রতিবন্ধী শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তির জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["40%", "2.50 Lakh", "disability"],
+    "notes": "Verified: disability percentage of 40% or above, parental income not exceeding 2.50 Lakh/annum."
+  },
+  {
+    "id": "postdis_benefits",
+    "scheme_slug": "post-dis",
+    "scheme_name": "Post Matric Scholarship for Students With Disabilities",
+    "category": "benefits",
+    "questions": {
+      "en": "What financial benefits does the Post Matric Scholarship for Students with Disabilities provide?",
+      "hi": "विकलांग छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति क्या वित्तीय लाभ प्रदान करती है?",
+      "bn": "প্রতিবন্ধী শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তি কী আর্থিক সুবিধা প্রদান করে?"
+    },
+    "expected_keywords": ["1600", "4000", "1500"],
+    "notes": "Verified: top-group maintenance allowance 1600/month (hostellers), visually impaired disability allowance 4000/annum, book allowance 1500/annum."
+  },
+  {
+    "id": "postdis_application",
+    "scheme_slug": "post-dis",
+    "scheme_name": "Post Matric Scholarship for Students With Disabilities",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Post Matric Scholarship for Students with Disabilities?",
+      "hi": "विकलांग छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "প্রতিবন্ধী শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["scholarships.gov.in", "New Registration"],
+    "notes": "Verified: apply online at scholarships.gov.in via New Registration."
+  },
+
+  {
+    "id": "postst_eligibility",
+    "scheme_slug": "post-st",
+    "scheme_name": "Post Matric Scholarship for Scheduled Tribe Students",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Post Matric Scholarship for Scheduled Tribe students?",
+      "hi": "अनुसूचित जनजाति छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति के लिए पात्रता क्या है?",
+      "bn": "তফসিলি উপজাতি শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তির জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["Scheduled Tribes", "2,00,000", "Matriculation"],
+    "notes": "Verified: must belong to Scheduled Tribes, passed Matriculation/Higher Secondary, parental income up to 2,00,000/annum."
+  },
+  {
+    "id": "postst_benefits",
+    "scheme_slug": "post-st",
+    "scheme_name": "Post Matric Scholarship for Scheduled Tribe Students",
+    "category": "benefits",
+    "questions": {
+      "en": "What stipend does the Post Matric Scholarship for Scheduled Tribe students provide?",
+      "hi": "अनुसूचित जनजाति छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति क्या वजीफा प्रदान करती है?",
+      "bn": "তফসিলি উপজাতি শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তি কী উপবৃত্তি প্রদান করে?"
+    },
+    "expected_keywords": ["1200", "12000", "800"],
+    "notes": "Verified: top-group stipend 1200/month (12000/year) for hostellers; additional disability allowance 800/month for hosteller Divyangjan students."
+  },
+  {
+    "id": "postst_application",
+    "scheme_slug": "post-st",
+    "scheme_name": "Post Matric Scholarship for Scheduled Tribe Students",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Post Matric Scholarship for Scheduled Tribe students?",
+      "hi": "अनुसूचित जनजाति छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "তফসিলি উপজাতি শিক্ষার্থীদের জন্য পোস্ট ম্যাট্রিক বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["Head of the Institution"],
+    "notes": "Verified: offline application submitted to the Head of the Institution being attended, addressed to the designated State/UT officer."
+  },
+
+  {
+    "id": "presc_eligibility",
+    "scheme_slug": "pre-sc",
+    "scheme_name": "Pre-Matric Scholarship for Scheduled Caste Students",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Pre-Matric Scholarship for Scheduled Caste students?",
+      "hi": "अनुसूचित जाति छात्रों के लिए प्री-मैट्रिक छात्रवृत्ति के लिए पात्रता क्या है?",
+      "bn": "তফসিলি জাতির শিক্ষার্থীদের জন্য প্রি-ম্যাট্রিক বৃত্তির জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["UDISE", "75%"],
+    "notes": "Verified: must be in a school with a valid UDISE code, maintain at least 75% attendance for continuation."
+  },
+  {
+    "id": "presc_benefits",
+    "scheme_slug": "pre-sc",
+    "scheme_name": "Pre-Matric Scholarship for Scheduled Caste Students",
+    "category": "benefits",
+    "questions": {
+      "en": "What amount does the Pre-Matric Scholarship for Scheduled Caste students provide?",
+      "hi": "अनुसूचित जाति छात्रों के लिए प्री-मैट्रिक छात्रवृत्ति कितनी राशि प्रदान करती है?",
+      "bn": "তফসিলি জাতির শিক্ষার্থীদের জন্য প্রি-ম্যাট্রিক বৃত্তি কত অর্থ প্রদান করে?"
+    },
+    "expected_keywords": ["3500", "7000", "10%"],
+    "notes": "Verified: Day Scholar 3500/annum, Hosteller 7000/annum, additional 10% allowance for PwD students in private unaided schools."
+  },
+  {
+    "id": "presc_application",
+    "scheme_slug": "pre-sc",
+    "scheme_name": "Pre-Matric Scholarship for Scheduled Caste Students",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Pre-Matric Scholarship for Scheduled Caste students?",
+      "hi": "अनुसूचित जाति छात्रों के लिए प्री-मैट्रिक छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "তফসিলি জাতির শিক্ষার্থীদের জন্য প্রি-ম্যাট্রিক বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["scholarship IT portal", "Direct Benefit Transfer"],
+    "notes": "Verified: apply on the scholarship IT portal on the day of admission; amount released via Direct Benefit Transfer."
+  },
+
+  {
+    "id": "pmposhan_eligibility",
+    "scheme_slug": "pm-poshan",
+    "scheme_name": "PM POSHAN (Prime Minister's Overarching Scheme for Holistic Nourishment)",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for PM POSHAN?",
+      "hi": "पीएम पोषण के लिए पात्रता क्या है?",
+      "bn": "পিএম পোষণের জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["Class 1st to Class 8th", "Government"],
+    "notes": "Verified: citizen of India studying in Class 1st to Class 8th in a Government or Government-aided school."
+  },
+  {
+    "id": "pmposhan_benefits",
+    "scheme_slug": "pm-poshan",
+    "scheme_name": "PM POSHAN (Prime Minister's Overarching Scheme for Holistic Nourishment)",
+    "category": "benefits",
+    "questions": {
+      "en": "What nutrition benefits does PM POSHAN provide per child?",
+      "hi": "पीएम पोषण प्रति बच्चे क्या पोषण लाभ प्रदान करता है?",
+      "bn": "পিএম পোষণ প্রতি শিশুকে কী পুষ্টি সুবিধা প্রদান করে?"
+    },
+    "expected_keywords": ["450", "700", "protein"],
+    "notes": "Verified: Primary level 450 calories/12g protein per day; Upper Primary 700 calories/20g protein per day."
+  },
+  {
+    "id": "pmposhan_application",
+    "scheme_slug": "pm-poshan",
+    "scheme_name": "PM POSHAN (Prime Minister's Overarching Scheme for Holistic Nourishment)",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for PM POSHAN?",
+      "hi": "पीएम पोषण के लिए आवेदन कैसे करें?",
+      "bn": "পিএম পোষণের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["no application process", "No documents"],
+    "notes": "Verified: unusual case, worth testing specifically — the scheme explicitly states there is NO application process and NO documents required; it's automatic for all eligible students. Good test of whether the system avoids inventing a fake process."
   }
 ]
