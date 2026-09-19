@@ -197,5 +197,204 @@
     },
     "expected_keywords": ["National Scholarships Portal", "scholarships.gov.in"],
     "notes": "Verified: apply via National Scholarship Portal (NSP) at scholarships.gov.in."
+  },
+  {
+    "id": "fesmwpnie_eligibility",
+    "scheme_slug": "fesmwpnie",
+    "scheme_name": "Free Education for Sports Medal Winners/Participants of National/International Events",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Free Education for Sports Medal Winners scheme?",
+      "hi": "खेल पदक विजेताओं के लिए मुफ्त शिक्षा योजना के लिए पात्रता क्या है?",
+      "bn": "ক্রীড়া পদকজয়ীদের জন্য বিনামূল্যে শিক্ষা প্রকল্পের জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["International Olympic Committee", "Olympic Committee of Asia", "UGC Act"],
+    "notes": "Verified: medal winners of National games / participants in events recognized by World University Service, IOC, OCA; admitted to institutions under UGC Act 1956."
+  },
+  {
+    "id": "fesmwpnie_benefits",
+    "scheme_slug": "fesmwpnie",
+    "scheme_name": "Free Education for Sports Medal Winners/Participants of National/International Events",
+    "category": "benefits",
+    "questions": {
+      "en": "What financial assistance is given under the Sports Medal Winners education scheme?",
+      "hi": "खेल पदक विजेता शिक्षा योजना के तहत क्या वित्तीय सहायता दी जाती है?",
+      "bn": "ক্রীড়া পদকজয়ী শিক্ষা প্রকল্পের অধীনে কী আর্থিক সহায়তা দেওয়া হয়?"
+    },
+    "expected_keywords": ["7500", "15000", "Kit"],
+    "notes": "Verified: tiered support by performance level — top tier Kit is 15000/annum, M.Phil gets 7500/month + actual, tuition fee actual."
+  },
+  {
+    "id": "fesmwpnie_application",
+    "scheme_slug": "fesmwpnie",
+    "scheme_name": "Free Education for Sports Medal Winners/Participants of National/International Events",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Sports Medal Winners education scheme?",
+      "hi": "खेल पदक विजेता शिक्षा योजना के लिए आवेदन कैसे करें?",
+      "bn": "ক্রীড়া পদকজয়ী শিক্ষা প্রকল্পের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["prescribed application form", "Registrar", "Principal"],
+    "notes": "Verified: offline, download the prescribed form, attach certificate of participation/medal attested by Registrar or Principal."
+  },
+
+  {
+    "id": "niti_eligibility",
+    "scheme_slug": "niti-i",
+    "scheme_name": "NITI Internship Scheme",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the NITI Aayog Internship Scheme?",
+      "hi": "नीति आयोग इंटर्नशिप योजना के लिए पात्रता क्या है?",
+      "bn": "নীতি আয়োগ ইন্টার্নশিপ প্রকল্পের জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["85%", "70%", "NITI Aayog"],
+    "notes": "Verified: UG students need 85% in 12th class, graduate/PG students need 70% in graduation."
+  },
+  {
+    "id": "niti_benefits",
+    "scheme_slug": "niti-i",
+    "scheme_name": "NITI Internship Scheme",
+    "category": "benefits",
+    "questions": {
+      "en": "What benefits does the NITI Aayog Internship Scheme provide?",
+      "hi": "नीति आयोग इंटर्नशिप योजना क्या लाभ प्रदान करती है?",
+      "bn": "নীতি আয়োগ ইন্টার্নশিপ প্রকল্প কী সুবিধা প্রদান করে?"
+    },
+    "expected_keywords": ["Completion Certificate", "unpaid"],
+    "notes": "Verified: internship is unpaid; interns get an Experience/Internship Completion Certificate on successful completion."
+  },
+  {
+    "id": "niti_application",
+    "scheme_slug": "niti-i",
+    "scheme_name": "NITI Internship Scheme",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the NITI Aayog Internship Scheme?",
+      "hi": "नीति आयोग इंटर्नशिप योजना के लिए आवेदन कैसे करें?",
+      "bn": "নীতি আয়োগ ইন্টার্নশিপ প্রকল্পের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["workforindia.niti.gov.in", "10th"],
+    "notes": "Verified: apply online at workforindia.niti.gov.in, accepted only from 1st to 10th of every month."
+  },
+
+  {
+    "id": "nssfp_eligibility",
+    "scheme_slug": "nssfp",
+    "scheme_name": "National Solar Science Fellowship Programme",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the National Solar Science Fellowship?",
+      "hi": "राष्ट्रीय सौर विज्ञान फेलोशिप के लिए पात्रता क्या है?",
+      "bn": "জাতীয় সৌর বিজ্ঞান ফেলোশিপের জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["doctorate", "ten years", "no age bar"],
+    "notes": "Verified: applicant needs a doctorate in solar sciences with at least ten years' experience; explicitly no age bar."
+  },
+  {
+    "id": "nssfp_benefits",
+    "scheme_slug": "nssfp",
+    "scheme_name": "National Solar Science Fellowship Programme",
+    "category": "benefits",
+    "questions": {
+      "en": "How much annual grant does the National Solar Science Fellowship provide?",
+      "hi": "राष्ट्रीय सौर विज्ञान फेलोशिप कितना वार्षिक अनुदान प्रदान करती है?",
+      "bn": "জাতীয় সৌর বিজ্ঞান ফেলোশিপ বছরে কত অনুদান প্রদান করে?"
+    },
+    "expected_keywords": ["32.00 lakhs", "12.00 lakhs", "15.00 lakhs"],
+    "notes": "Verified: total annual grant up to 32.00 lakhs = 12.00 lakhs emolument + 5.00 lakhs contingencies + 15.00 lakhs research grant."
+  },
+  {
+    "id": "nssfp_application",
+    "scheme_slug": "nssfp",
+    "scheme_name": "National Solar Science Fellowship Programme",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the National Solar Science Fellowship?",
+      "hi": "राष्ट्रीय सौर विज्ञान फेलोशिप के लिए आवेदन कैसे करें?",
+      "bn": "জাতীয় সৌর বিজ্ঞান ফেলোশিপের জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["Proforma", "Annexure-II", "advertisement"],
+    "notes": "Verified: offline application via prescribed Proforma (Annexure-II), invited through open advertisement."
+  },
+
+  {
+    "id": "pgigssgc_eligibility",
+    "scheme_slug": "pg-igssgc",
+    "scheme_name": "PG Indira Gandhi Scholarship for Single Girl Child",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the Indira Gandhi Scholarship for Single Girl Child?",
+      "hi": "एकल बालिका के लिए इंदिरा गांधी छात्रवृत्ति के लिए पात्रता क्या है?",
+      "bn": "একক কন্যা সন্তানের জন্য ইন্দিরা গান্ধী বৃত্তির জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["single girl child", "30 years", "PG-I year"],
+    "notes": "Verified: must be the only girl child, age not more than 30 years at admission, only for PG-I year students."
+  },
+  {
+    "id": "pgigssgc_benefits",
+    "scheme_slug": "pg-igssgc",
+    "scheme_name": "PG Indira Gandhi Scholarship for Single Girl Child",
+    "category": "benefits",
+    "questions": {
+      "en": "How much scholarship amount is given under the Indira Gandhi Scholarship for Single Girl Child?",
+      "hi": "एकल बालिका इंदिरा गांधी छात्रवृत्ति के तहत कितनी राशि दी जाती है?",
+      "bn": "একক কন্যা ইন্দিরা গান্ধী বৃত্তির অধীনে কত অর্থ দেওয়া হয়?"
+    },
+    "expected_keywords": ["36,200", "3,000", "DBT"],
+    "notes": "Verified: 36,200/year for 2 years, 3,000 fresh scholarships awarded every year, paid via DBT."
+  },
+  {
+    "id": "pgigssgc_application",
+    "scheme_slug": "pg-igssgc",
+    "scheme_name": "PG Indira Gandhi Scholarship for Single Girl Child",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the Indira Gandhi Scholarship for Single Girl Child?",
+      "hi": "एकल बालिका इंदिरा गांधी छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "একক কন্যা ইন্দিরা গান্ধী বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["National Scholarships Portal", "OTR"],
+    "notes": "Verified: apply online via National Scholarships Portal, requires One Time Registration (OTR) with Aadhaar face authentication."
+  },
+
+  {
+    "id": "pgspcscstc_eligibility",
+    "scheme_slug": "pgspcscstc",
+    "scheme_name": "PG Scholarships for Professional Courses for SC/ST Candidates",
+    "category": "eligibility",
+    "questions": {
+      "en": "What is the eligibility for the PG Scholarship for Professional Courses for SC/ST candidates?",
+      "hi": "एससी/एसटी उम्मीदवारों के लिए व्यावसायिक पाठ्यक्रमों हेतु पीजी छात्रवृत्ति के लिए पात्रता क्या है?",
+      "bn": "এসসি/এসটি প্রার্থীদের জন্য পেশাদার কোর্সের পিজি বৃত্তির জন্য যোগ্যতা কী?"
+    },
+    "expected_keywords": ["SC/ST", "Graduate degree", "first year"],
+    "notes": "Verified: must belong to SC/ST category, hold a graduate degree, and be in the first year of the PG professional course."
+  },
+  {
+    "id": "pgspcscstc_benefits",
+    "scheme_slug": "pgspcscstc",
+    "scheme_name": "PG Scholarships for Professional Courses for SC/ST Candidates",
+    "category": "benefits",
+    "questions": {
+      "en": "How much monthly scholarship is given under the PG Scholarship for SC/ST professional courses?",
+      "hi": "एससी/एसटी व्यावसायिक पाठ्यक्रम पीजी छात्रवृत्ति के तहत मासिक कितनी राशि दी जाती है?",
+      "bn": "এসসি/এসটি পেশাদার কোর্স পিজি বৃত্তির অধীনে মাসিক কত অর্থ দেওয়া হয়?"
+    },
+    "expected_keywords": ["7800", "4500", "per month"],
+    "notes": "Verified: 7800/month for ME/M.Tech, 4500/month for other professional courses."
+  },
+  {
+    "id": "pgspcscstc_application",
+    "scheme_slug": "pgspcscstc",
+    "scheme_name": "PG Scholarships for Professional Courses for SC/ST Candidates",
+    "category": "application_process",
+    "questions": {
+      "en": "How do I apply for the PG Scholarship for Professional Courses for SC/ST candidates?",
+      "hi": "एससी/एसटी व्यावसायिक पाठ्यक्रम पीजी छात्रवृत्ति के लिए आवेदन कैसे करें?",
+      "bn": "এসসি/এসটি পেশাদার কোর্স পিজি বৃত্তির জন্য কীভাবে আবেদন করব?"
+    },
+    "expected_keywords": ["National Scholarship Portal", "host institution"],
+    "notes": "Verified: apply online via National Scholarship Portal; the host institution must verify the online application."
   }
 ]
